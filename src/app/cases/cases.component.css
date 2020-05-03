@@ -1,0 +1,44 @@
+h4 {
+  font-family: cursive;
+  font-size: xx-large;
+  font-style: oblique;
+  color: darkblue;
+}
+
+p {
+  margin: 0 0 10px;
+  font-size: 2vw;
+  font-family: cursive;
+  color: #337ab7;
+}
+
+@media screen and (min-width: 1200px) {
+  p {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  p {
+    font-size: large;
+  }
+}
+
+.well {
+  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, .2);
+  margin: 10px 20px 20px 20px;
+  height: 210px;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+h1 {
+  margin: 0;
+  font-size: xxx-large;
+  padding: 10px;
+  background-color: darkslateblue;
+  color: lightsteelblue;
+  text-align: center;
+}

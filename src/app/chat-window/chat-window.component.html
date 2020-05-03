@@ -1,0 +1,42 @@
+<div style="height:15%; background-color:#337ab7;">
+  <div style="float:left;height:100%">
+    <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="user_img" style="border:0px;">
+  </div>
+  <div class="user_info">
+    <span>BOT</span><br>
+  </div>
+</div>
+<div class="chat-box">
+  <div>
+    <div *ngFor="let msg of data" style="display:flow-root;">
+      <ng-container *ngIf="msg.type==='question'">
+        <img [src]="user_dp" class="user_img_msg" style="display: none;">
+        <div class="msg_cotainer">
+          {{msg.text}}
+          <span class="msg_time" style="font-size: xx-small; float: right; padding-top: 5px;">8:40 AM</span>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="msg.type==='answer'">
+
+        <div class="msg_cotainer_send">
+          {{msg.text}}
+          <span class="msg_time_send" style="font-size: xx-small; float: right; padding-top: 5px;">8:55 AM, Today</span>
+        </div>
+        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="user_img_msg" style="display: none;">
+      </ng-container>
+      <ng-container *ngIf="msg.type==='opt'">
+        <button class="msg_cotainer_send" (click)="userOpt=msg.text;addItem(null);">
+          {{msg.text}}
+          <span class="msg_time_send" style="font-size: xx-small; float: right; padding-top: 5px;">8:55 AM, Today</span>
+        </button>
+        <img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="user_img_msg" style="display: none;">
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="input-group">
+  <textarea name="" [(ngModel)]="userInput" (keyup.enter)="addItem(null)" class="form-control type_msg" placeholder="Type your message..."></textarea>
+  <div class="input-group-append">
+    <a (click)="addItem(null)" class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></a>
+  </div>
+</div>

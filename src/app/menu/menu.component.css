@@ -1,0 +1,12 @@
+.navbar {
+  margin-bottom: 0px;
+  top: 0px;
+  position: sticky;
+  z-index: 2;
+}
+
+.nav-pills {
+  position: fixed;
+  left: 0px;
+  top: 80px;
+}

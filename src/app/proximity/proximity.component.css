@@ -1,0 +1,57 @@
+.img {
+  margin: 30px 6px 10px 10px;
+  border: 4px solid #eee;
+  box-shadow: rgb(224, 199, 199) 1px 1px 8px 1px;
+  cursor: pointer;
+  margin-left: 40px;
+}
+
+.row_Custom {
+  /* justify-content: center;
+       display: flex; */
+  width: 100%;
+  height: 50%;
+}
+
+.row_image {
+  width: 25%;
+}
+
+.label {
+  color: black;
+  padding: 8px;
+  font-size: 1em;
+  margin-top: 30px;
+  margin-bottom: 1.33em;
+  margin-left: 11%;
+  margin-right: 0;
+  padding-top: 40px;
+  padding-left: 16px;
+}
+
+.label1 {
+  color: black;
+  padding: 8px;
+  font-size: 1em;
+  margin-top: 30px;
+  margin-bottom: 1.33em;
+  margin-right: 0;
+  padding-top: 40px;
+}
+
+h2 {
+  margin: 0;
+  font-size: xxx-large;
+  padding: 10px;
+  background-color: darkslateblue;
+  color: lightsteelblue;
+}
+
+.danger {
+  color: #f44336;
+}
+
+/* Red */
+.blink {
+  margin-left: 40px;
+}

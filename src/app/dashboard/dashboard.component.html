@@ -1,0 +1,76 @@
+<app-header></app-header>
+
+<div class="content">
+  <div class="row">
+    <div class="col-xs-12 visible-xs">
+      <app-general-info></app-general-info>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 visible-xs">
+      <app-cases-number></app-cases-number>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 visible-xs">
+      <app-regulations></app-regulations>
+    </div>
+  </div>
+  <div class="row visible-sm visible-md">
+    <div class="col-xs-6 hidden-xs">
+      <app-regulations></app-regulations>
+    </div>
+    <div class="col-xs-6 hidden-xs">
+      <app-cases-number></app-cases-number>
+    </div>
+  </div>
+  <div class="col-xs-4 hidden-xs hidden-sm hidden-md">
+    <app-general-info></app-general-info>
+  </div>
+  <div class="col-xs-8 hidden-xs hidden-sm hidden-md">
+    <div class="row">
+      <div class="col-xs-6 hidden-xs">
+        <app-regulations></app-regulations>
+      </div>
+      <div class="col-xs-6 hidden-xs">
+        <app-cases-number></app-cases-number>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <app-maps></app-maps>
+      </div>
+    </div>
+  </div>
+  <!--<div class="row">
+    <div class="col-xs-6 hidden-xs">
+      <app-general-info></app-general-info>
+    </div>
+    <div class="col-xs-6 hidden-xs">
+      <app-site-links></app-site-links>
+    </div>
+  </div>-->
+  <div class="row visible-xs visible-sm visible-md">
+    <div class="col-xs-12">
+      <app-maps></app-maps>
+    </div>
+  </div>
+  <div class="chat-window" style="display: {{var11}}; border-radius:5%;">
+    <app-chat-window style="height: 100%; background-color: wheat"></app-chat-window>
+  </div>
+  <div class="sos-window" style="display: {{var111}}">
+    <div>
+      <textarea name="" [(ngModel)]="userInput" (keyup.enter)="send();" class="form-control type_msg" placeholder="Type your message..." style="color:black; background-color:lightsalmon;"></textarea>
+    </div>
+  </div>
+  <a (click)="change();">
+    <div class="chat-Button">
+      <h4>BOT</h4>
+    </div>
+  </a>
+  <a (click)="change1();">
+    <div class="sos-Button">
+      <h4>SOS</h4>
+    </div>
+  </a>
+</div>

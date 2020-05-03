@@ -1,0 +1,22 @@
+<div class="well">
+  <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" style="height:360px">
+    <li *ngFor="let lon of lat1;">
+      <agm-marker latitude="{{lon.lt}}" longitude="{{lon.log}}" (mouseOver)="onMouseOver(lon.lt);"></agm-marker>
+    </li>
+  </agm-map>
+
+
+</div>
+
+<div class="well" style="display: {{dis}};">
+  <h4>Help Required</h4>
+  <p>{{message}}</p>
+</div>
+
+
+<div class="well" style="display: {{disp}};">
+  <h4>List of Help Required</h4>
+  <li *ngFor="let lon of lat1;">
+    {{lon.msg}}
+  </li>
+</div>

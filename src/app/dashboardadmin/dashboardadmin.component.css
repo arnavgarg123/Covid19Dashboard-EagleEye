@@ -1,0 +1,67 @@
+.content {
+  display: block;
+  padding-top: 1%;
+}
+
+.row {
+  display: flex;
+}
+
+.chat-Button {
+  display: inline-block;
+  background-color: #337ab7;
+  right: 2%;
+  z-index: 2;
+  position: fixed;
+  bottom: 2%;
+  border-radius: 15px;
+  width: 45px;
+}
+
+.sos-Button {
+  display: inline-block;
+  background-color: red;
+  right: 80px;
+  z-index: 2;
+  position: fixed;
+  bottom: 2%;
+  border-radius: 15px;
+  width: 45px;
+}
+
+h4 {
+  margin: 35% 0 35% 0;
+  text-align: center;
+  color: white;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.chat-window {
+  right: 2%;
+  z-index: 3;
+  position: fixed;
+  bottom: 75px;
+  display: flex;
+  background-color: lightseagreen;
+  height: 60%;
+  width: 30%;
+  overflow-y: auto;
+  flex-direction: column-reverse;
+}
+
+.sos-window {
+  right: 2%;
+  z-index: 3;
+  position: fixed;
+  bottom: 75px;
+  display: flex;
+  background-color: lightseagreen;
+  padding: 10px 0px 0px 10px;
+  width: 30%;
+  overflow-y: auto;
+  flex-direction: column-reverse;
+}

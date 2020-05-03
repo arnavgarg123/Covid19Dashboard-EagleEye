@@ -1,0 +1,7 @@
+h4, p {
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
