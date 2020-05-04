@@ -72,3 +72,7 @@ After completeing the installation follow the steps below to get the app up and 
     ```sh
     ng serve --proxy-config proxy.conf.json
     ```
+4. Open your browser (preferably google chrome) and visit -
+    ```sh
+    http://localhost:4200/
+    ```
