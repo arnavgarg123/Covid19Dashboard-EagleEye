@@ -18,7 +18,13 @@ export class ProximityComponent implements OnInit {
   color11: any;
   color22: any;
   color33: any;
+  zoom: any;
+  lat: any;
+  lng: any;
   constructor(private chatService: ChatService) {
+    this.zoom = 15;
+    this.lat = -23.8779431;
+    this.lng = -49.8046873;
     this.color1 = "";
     this.color2 = "";
     this.color3 = "";
