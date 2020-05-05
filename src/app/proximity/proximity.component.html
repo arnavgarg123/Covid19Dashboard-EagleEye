@@ -1,36 +1,47 @@
 <div>
   <div class="row">
-    <div class="col-sm-12 ">
+    <div class="col-sm-12 " style="z-index:2;">
       <h2 class="text-center"> Proximity And Density Tracker </h2>
     </div>
   </div>
-  <div class="row_Custom">
-    <div class="col-md-3 row_image">
-      <img src="assets/images/1.jpg" class="img" width="300" height="210">
-      <div class="blink well" style="margin-top: 10px; background-color: {{color1}}; width:300px;">
-        <span class="label1 success"><strong> Total number of people : </strong> {{var1}} </span>
+  <div style="display: flex; background-color: lightgrey;">
+    <div class="col-md-6">
+      <div class="row_Custom">
+        <div class="col-md-6 row_image">
+          <img src="assets/images/1.jpg" class="img" width="370" height="265">
+          <!--<div class="blink well" style="margin-top: 10px; background-color: {{color1}}; width:370pxpx;">
+            <span class="label1 success"><strong> {{var1}} people in the frame with max groupsize of {{var11}} </strong></span>
+          </div>
+          <div class="blink well" style="margin-top: 10px; background-color: {{color11}}; width:370pxpx;">
+            <span class="label1 success"><strong> Most people in a group : </strong> {{var11}}</span>
+          </div>-->
+        </div>
+        <div class="col-md-6 row_image">
+          <img src="assets/images/2.jpg" class="img" width="370" height="265">
+          <!--<div class="blink well" style="margin-top: 10px; background-color: {{color2}}; width:370pxpx;">
+            <span class="label1 success"> <strong> Total number of people : </strong> {{var2}}</span>
+          </div>
+          <div class="blink  well" style="margin-top: 10px; background-color:{{color22}}; width:370pxpx;">
+            <span class="label1 success"><strong> Most people in a group : </strong> {{var22}}</span>
+          </div>-->
+        </div>
       </div>
-      <div class="blink well" style="margin-top: 10px; background-color: {{color11}}; width:300px;">
-        <span class="label1 success"><strong> Most people in a group : </strong> {{var11}}</span>
+      <div class="row_Custom">
+        <div class="col-md-6 row_image">
+          <img src="assets/images/3.jpg" class="img" width="370" height="265">
+          <!--<div class="blink well" style="margin-top: 10px; background-color: {{color3}}; width:370pxpx;">
+            <span class="label1 success"><strong> Total number of people : </strong> {{var3}}</span>
+          </div>
+          <div class="blink well" style="margin-top: 10px; background-color:{{color33}}; width:370pxpx;">
+            <span class="label1 success"><strong> Most people in a group : </strong> {{var33}}</span>
+          </div>-->
+        </div>
       </div>
     </div>
-    <div class="col-md-3 row_image">
-      <img src="assets/images/2.jpg" class="img" width="300" height="210">
-      <div class="blink well" style="margin-top: 10px; background-color: {{color2}}; width:300px;">
-        <span class="label1 success"> <strong> Total number of people : </strong> {{var2}}</span>
-      </div>
-      <div class="blink  well" style="margin-top: 10px; background-color:{{color22}}; width:300px;">
-        <span class="label1 success"><strong> Most people in a group : </strong> {{var22}}</span>
-      </div>
-    </div>
-    <div class="col-md-3 row_image">
-      <img src="assets/images/3.jpg" class="img" width="300" height="210">
-      <div class="blink well" style="margin-top: 10px; background-color: {{color3}}; width:300px;">
-        <span class="label1 success"><strong> Total number of people : </strong> {{var3}}</span>
-      </div>
-      <div class="blink well" style="margin-top: 10px; background-color:{{color33}}; width:300px;">
-        <span class="label1 success"><strong> Most people in a group : </strong> {{var33}}</span>
-      </div>
+    <div class="col-md-6 map" style="top:0px;">
+      <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" style="height:780px;">
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      </agm-map>
     </div>
   </div>
 </div>

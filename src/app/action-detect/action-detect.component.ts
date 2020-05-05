@@ -36,6 +36,10 @@ export class ActionDetectComponent implements OnInit {
   color6: any;
   color7: any;
   color8: any;
+
+  zoom: any;
+  lat: any;
+  lng: any;
   // responsePark1AR1: any;
   // responsePark2NAR1: any;
   // responsePark3AR1: any;
@@ -44,6 +48,9 @@ export class ActionDetectComponent implements OnInit {
   // WatsonResArray: any;
 
   constructor(private elmnt: ElementRef, private http: HttpClient) {
+    this.zoom = 15;
+    this.lat = -23.8779431;
+    this.lng = -49.8046873;
     this.color1 = "white";
     this.color2 = "white";
     this.color3 = "white";
