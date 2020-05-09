@@ -22,6 +22,7 @@
     "@angular/router": "~9.1.1",
     "@types/googlemaps": "^3.39.3",
     "angular-alert-module": "^2.0.3",
+    "ng2-tooltip-directive": "^2.9.20",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

@@ -1,5 +1,5 @@
 <div class="well">
-  <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" style="height:360px">
+  <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" style="height:360px" [mapTypeId]="'hybrid'">
     <li *ngFor="let lon of lat1;">
       <agm-marker latitude="{{lon.lt}}" longitude="{{lon.log}}" (mouseOver)="onMouseOver(lon.lt);"></agm-marker>
     </li>

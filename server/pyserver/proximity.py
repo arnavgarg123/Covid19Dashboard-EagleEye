@@ -174,7 +174,10 @@ model.load_state_dict(checkpoint['state_dict'])
 @api.route('/companies', methods=['GET', 'POST'])
 def get_companies():
   diction = {}
-  img = transform(Image.open('abc.jpg').convert('RGB'))
+  from resizeimage import resizeimage
+  image = Image.open('abc.jpg')
+  image = resizeimage.resize_cover(image, [370, 265])
+  img = transform(image.convert('RGB'))
   output = model(img.unsqueeze(0))
   a = output.detach().cpu().reshape(
       output.detach().cpu().shape[2], output.detach().cpu().shape[3]).numpy()
@@ -191,19 +194,66 @@ def get_companies():
       jj = jj + 1
     ii = ii + 1
 
+
+#########################################################
+
   count = 1
-  b = []
+  lis = {}
+  k = 0
   for i in z:
+    lis[k] = [i]
     count = 1
     for j in z:
       if i != j:
         if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
           if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
             count = count + 1
-    b = b + [count]
+            lis[k] = lis[k] + [j]
+    k = k + 1
+    # #print(i,count)
+  for i in range(0, k):
+    for j in range(0, k):
+      if i != j:
+        if (all(x in lis[i] for x in lis[j])):
+          lis[i] = ['o']
+  li = {}
+  j = 0
+
+  for i in range(0, k):
+    if len(lis[i]) != 1:
+      li[j] = lis[i]
+      j = j + 1
+  # print(li)
+  sm = []
+  lg = []
+  for i in range(0, j):
+    smi = 100
+    smj = 100
+    lgi = 0
+    lgj = 0
+    for k in li[i]:
+      for kk in li[i]:
+        if k != kk:
+          if k[0] <= kk[0] and k[0] < smi:
+            smi = k[0]
+          if k[1] <= kk[1] and k[1] < smj:
+            smj = k[1]
+          if k[0] >= kk[0] and k[0] > lgi:
+            lgi = k[0]
+          if k[1] >= kk[1] and k[1] > lgj:
+            lgj = k[1]
+    sm = sm + [[smi, smj]]
+    lg = lg + [[lgi, lgj]]
+
+
+##################################################################
+
   diction.update(
-      {1: [int(output.detach().cpu().sum().numpy()), count1, max(b)]})
-  img = transform(Image.open('testup.jpg').convert('RGB'))
+      {1: [sm, lg, count1]})
+
+  image = Image.open('new1.jpg')
+  image = resizeimage.resize_cover(image, [370, 265])
+  img = transform(image.convert('RGB'))
   output = model(img.unsqueeze(0))
   a = output.detach().cpu().reshape(
       output.detach().cpu().shape[2], output.detach().cpu().shape[3]).numpy()
@@ -220,19 +270,73 @@ def get_companies():
       jj = jj + 1
     ii = ii + 1
 
-  count = 1
-  b = []
-  for i in z:
+  #count = 1
+  #b = []
+  # for i in z:
+  #  count = 1
+  #  for j in z:
+  #    if i != j:
+  #      if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
+  #        if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
+  #          count = count + 1
+  #  b = b + [count]
+  #########################################################
+
     count = 1
-    for j in z:
-      if i != j:
-        if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
-          if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
-            count = count + 1
-    b = b + [count]
+    lis = {}
+    k = 0
+    for i in z:
+      lis[k] = [i]
+      count = 1
+      for j in z:
+        if i != j:
+          if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
+            if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
+              count = count + 1
+              lis[k] = lis[k] + [j]
+      k = k + 1
+      # #print(i,count)
+    for i in range(0, k):
+      for j in range(0, k):
+        if i != j:
+          if (all(x in lis[i] for x in lis[j])):
+            lis[i] = ['o']
+    li = {}
+    j = 0
+
+    for i in range(0, k):
+      if len(lis[i]) > 5:
+        li[j] = lis[i]
+        j = j + 1
+    # print(li)
+    sm = []
+    lg = []
+    for i in range(0, j):
+      smi = 100
+      smj = 100
+      lgi = 0
+      lgj = 0
+      for k in li[i]:
+        for kk in li[i]:
+          if k != kk:
+            if k[0] <= kk[0] and k[0] < smi:
+              smi = k[0]
+            if k[1] <= kk[1] and k[1] < smj:
+              smj = k[1]
+            if k[0] >= kk[0] and k[0] > lgi:
+              lgi = k[0]
+            if k[1] >= kk[1] and k[1] > lgj:
+              lgj = k[1]
+      sm = sm + [[smi, smj]]
+      lg = lg + [[lgi, lgj]]
+
+  ##################################################################
   diction.update(
-      {2: [int(output.detach().cpu().sum().numpy()), count1, max(b)]})
-  img = transform(Image.open('test5.jpg').convert('RGB'))
+      {2: [sm, lg, count1]})
+  from resizeimage import resizeimage
+  image = Image.open('test5.jpg')
+  image = resizeimage.resize_cover(image, [370, 265])
+  img = transform(image.convert('RGB'))
   output = model(img.unsqueeze(0))
   a = output.detach().cpu().reshape(
       output.detach().cpu().shape[2], output.detach().cpu().shape[3]).numpy()
@@ -249,18 +353,439 @@ def get_companies():
       jj = jj + 1
     ii = ii + 1
 
+#########################################################
+
   count = 1
-  b = []
+  lis = {}
+  k = 0
   for i in z:
+    lis[k] = [i]
     count = 1
     for j in z:
       if i != j:
         if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
           if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
             count = count + 1
-    b = b + [count]
+            lis[k] = lis[k] + [j]
+    k = k + 1
+    # #print(i,count)
+  for i in range(0, k):
+    for j in range(0, k):
+      if i != j:
+        if (all(x in lis[i] for x in lis[j])):
+          lis[i] = ['o']
+  li = {}
+  j = 0
+
+  for i in range(0, k):
+    if len(lis[i]) != 1:
+      li[j] = lis[i]
+      j = j + 1
+  # print(li)
+  sm = []
+  lg = []
+  for i in range(0, j):
+    smi = 100
+    smj = 100
+    lgi = 0
+    lgj = 0
+    for k in li[i]:
+      for kk in li[i]:
+        if k != kk:
+          if k[0] <= kk[0] and k[0] < smi:
+            smi = k[0]
+          if k[1] <= kk[1] and k[1] < smj:
+            smj = k[1]
+          if k[0] >= kk[0] and k[0] > lgi:
+            lgi = k[0]
+          if k[1] >= kk[1] and k[1] > lgj:
+            lgj = k[1]
+    sm = sm + [[smi, smj]]
+    lg = lg + [[lgi, lgj]]
+
+
+##################################################################
+
   diction.update(
-      {3: [int(output.detach().cpu().sum().numpy()), count1, max(b)]})
+      {3: [sm, lg, count1]})
+
+  image = Image.open('new11.jpg')
+  image = resizeimage.resize_cover(image, [370, 265])
+  img = transform(image.convert('RGB'))
+  output = model(img.unsqueeze(0))
+  a = output.detach().cpu().reshape(
+      output.detach().cpu().shape[2], output.detach().cpu().shape[3]).numpy()
+  count1 = 0
+  z = []
+  ii = 0
+  jj = 0
+  for i in a:
+    jj = 0
+    for j in i:
+      if j > 0.074:
+        count1 = count1 + 1
+        z = z + [[ii, jj]]
+      jj = jj + 1
+    ii = ii + 1
+
+
+#########################################################
+
+  count = 1
+  lis = {}
+  k = 0
+  for i in z:
+    lis[k] = [i]
+    count = 1
+    for j in z:
+      if i != j:
+        if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
+          if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
+            count = count + 1
+            lis[k] = lis[k] + [j]
+    k = k + 1
+    # #print(i,count)
+  for i in range(0, k):
+    for j in range(0, k):
+      if i != j:
+        if (all(x in lis[i] for x in lis[j])):
+          lis[i] = ['o']
+  li = {}
+  j = 0
+
+  for i in range(0, k):
+    if len(lis[i]) != 1:
+      li[j] = lis[i]
+      j = j + 1
+  # print(li)
+  sm = []
+  lg = []
+  for i in range(0, j):
+    smi = 100
+    smj = 100
+    lgi = 0
+    lgj = 0
+    for k in li[i]:
+      for kk in li[i]:
+        if k != kk:
+          if k[0] <= kk[0] and k[0] < smi:
+            smi = k[0]
+          if k[1] <= kk[1] and k[1] < smj:
+            smj = k[1]
+          if k[0] >= kk[0] and k[0] > lgi:
+            lgi = k[0]
+          if k[1] >= kk[1] and k[1] > lgj:
+            lgj = k[1]
+    sm = sm + [[smi, smj]]
+    lg = lg + [[lgi, lgj]]
+
+
+##################################################################
+
+  diction.update(
+      {4: [sm, lg, count1]})
+
+  image = Image.open('new111.jpg')
+  image = resizeimage.resize_cover(image, [370, 265])
+  img = transform(image.convert('RGB'))
+  output = model(img.unsqueeze(0))
+  a = output.detach().cpu().reshape(
+      output.detach().cpu().shape[2], output.detach().cpu().shape[3]).numpy()
+  count1 = 0
+  z = []
+  ii = 0
+  jj = 0
+  for i in a:
+    jj = 0
+    for j in i:
+      if j > 0.074:
+        count1 = count1 + 1
+        z = z + [[ii, jj]]
+      jj = jj + 1
+    ii = ii + 1
+
+
+#########################################################
+
+  count = 1
+  lis = {}
+  k = 0
+  for i in z:
+    lis[k] = [i]
+    count = 1
+    for j in z:
+      if i != j:
+        if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
+          if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
+            count = count + 1
+            lis[k] = lis[k] + [j]
+    k = k + 1
+    # #print(i,count)
+  for i in range(0, k):
+    for j in range(0, k):
+      if i != j:
+        if (all(x in lis[i] for x in lis[j])):
+          lis[i] = ['o']
+  li = {}
+  j = 0
+
+  for i in range(0, k):
+    if len(lis[i]) != 1:
+      li[j] = lis[i]
+      j = j + 1
+  # print(li)
+  sm = []
+  lg = []
+  for i in range(0, j):
+    smi = 100
+    smj = 100
+    lgi = 0
+    lgj = 0
+    for k in li[i]:
+      for kk in li[i]:
+        if k != kk:
+          if k[0] <= kk[0] and k[0] < smi:
+            smi = k[0]
+          if k[1] <= kk[1] and k[1] < smj:
+            smj = k[1]
+          if k[0] >= kk[0] and k[0] > lgi:
+            lgi = k[0]
+          if k[1] >= kk[1] and k[1] > lgj:
+            lgj = k[1]
+    sm = sm + [[smi, smj]]
+    lg = lg + [[lgi, lgj]]
+
+
+##################################################################
+
+  diction.update(
+      {5: [sm, lg, count1]})
+
+  image = Image.open('test6.jpg')
+  image = resizeimage.resize_cover(image, [370, 265])
+  img = transform(image.convert('RGB'))
+  output = model(img.unsqueeze(0))
+  a = output.detach().cpu().reshape(
+      output.detach().cpu().shape[2], output.detach().cpu().shape[3]).numpy()
+  count1 = 0
+  z = []
+  ii = 0
+  jj = 0
+  for i in a:
+    jj = 0
+    for j in i:
+      if j > 0.074:
+        count1 = count1 + 1
+        z = z + [[ii, jj]]
+      jj = jj + 1
+    ii = ii + 1
+
+#########################################################
+
+  count = 1
+  lis = {}
+  k = 0
+  for i in z:
+    lis[k] = [i]
+    count = 1
+    for j in z:
+      if i != j:
+        if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
+          if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
+            count = count + 1
+            lis[k] = lis[k] + [j]
+    k = k + 1
+    # #print(i,count)
+  for i in range(0, k):
+    for j in range(0, k):
+      if i != j:
+        if (all(x in lis[i] for x in lis[j])):
+          lis[i] = ['o']
+  li = {}
+  j = 0
+
+  for i in range(0, k):
+    if len(lis[i]) > 3:
+      li[j] = lis[i]
+      j = j + 1
+  # print(li)
+  sm = []
+  lg = []
+  for i in range(0, j):
+    smi = 100
+    smj = 100
+    lgi = 0
+    lgj = 0
+    for k in li[i]:
+      for kk in li[i]:
+        if k != kk:
+          if k[0] <= kk[0] and k[0] < smi:
+            smi = k[0]
+          if k[1] <= kk[1] and k[1] < smj:
+            smj = k[1]
+          if k[0] >= kk[0] and k[0] > lgi:
+            lgi = k[0]
+          if k[1] >= kk[1] and k[1] > lgj:
+            lgj = k[1]
+    sm = sm + [[smi, smj]]
+    lg = lg + [[lgi, lgj]]
+
+
+##################################################################
+
+  diction.update(
+      {6: [sm, lg, count1]})
+
+  image = Image.open('test7.jpg')
+  image = resizeimage.resize_cover(image, [370, 265])
+  img = transform(image.convert('RGB'))
+  output = model(img.unsqueeze(0))
+  a = output.detach().cpu().reshape(
+      output.detach().cpu().shape[2], output.detach().cpu().shape[3]).numpy()
+  count1 = 0
+  z = []
+  ii = 0
+  jj = 0
+  for i in a:
+    jj = 0
+    for j in i:
+      if j > 0.074:
+        count1 = count1 + 1
+        z = z + [[ii, jj]]
+      jj = jj + 1
+    ii = ii + 1
+
+#########################################################
+
+  count = 1
+  lis = {}
+  k = 0
+  for i in z:
+    lis[k] = [i]
+    count = 1
+    for j in z:
+      if i != j:
+        if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
+          if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
+            count = count + 1
+            lis[k] = lis[k] + [j]
+    k = k + 1
+    # #print(i,count)
+  for i in range(0, k):
+    for j in range(0, k):
+      if i != j:
+        if (all(x in lis[i] for x in lis[j])):
+          lis[i] = ['o']
+  li = {}
+  j = 0
+
+  for i in range(0, k):
+    if len(lis[i]) != 1:
+      li[j] = lis[i]
+      j = j + 1
+  # print(li)
+  sm = []
+  lg = []
+  for i in range(0, j):
+    smi = 100
+    smj = 100
+    lgi = 0
+    lgj = 0
+    for k in li[i]:
+      for kk in li[i]:
+        if k != kk:
+          if k[0] <= kk[0] and k[0] < smi:
+            smi = k[0]
+          if k[1] <= kk[1] and k[1] < smj:
+            smj = k[1]
+          if k[0] >= kk[0] and k[0] > lgi:
+            lgi = k[0]
+          if k[1] >= kk[1] and k[1] > lgj:
+            lgj = k[1]
+    sm = sm + [[smi, smj]]
+    lg = lg + [[lgi, lgj]]
+
+
+##################################################################
+
+  diction.update(
+      {7: [sm, lg, count1]})
+
+  image = Image.open('test8.jpg')
+  image = resizeimage.resize_cover(image, [370, 265])
+  img = transform(image.convert('RGB'))
+  output = model(img.unsqueeze(0))
+  a = output.detach().cpu().reshape(
+      output.detach().cpu().shape[2], output.detach().cpu().shape[3]).numpy()
+  count1 = 0
+  z = []
+  ii = 0
+  jj = 0
+  for i in a:
+    jj = 0
+    for j in i:
+      if j > 0.074:
+        count1 = count1 + 1
+        z = z + [[ii, jj]]
+      jj = jj + 1
+    ii = ii + 1
+
+#########################################################
+
+  count = 1
+  lis = {}
+  k = 0
+  for i in z:
+    lis[k] = [i]
+    count = 1
+    for j in z:
+      if i != j:
+        if i[0] == j[0] + 1 or i[0] + 1 == j[0] or i[0] == j[0] or i[0] == j[0] + 2 or i[0] + 2 == j[0] or i[0] == j[0] + 3 or i[0] + 3 == j[0]:
+          if i[1] == j[1] + 1 or i[1] + 1 == j[1] or i[1] == j[1] or i[1] == j[1] + 2 or i[1] + 2 == j[1] or i[1] == j[1] + 3 or i[1] + 3 == j[1]:
+            count = count + 1
+            lis[k] = lis[k] + [j]
+    k = k + 1
+    # #print(i,count)
+  for i in range(0, k):
+    for j in range(0, k):
+      if i != j:
+        if (all(x in lis[i] for x in lis[j])):
+          lis[i] = ['o']
+  li = {}
+  j = 0
+
+  for i in range(0, k):
+    if len(lis[i]) != 1:
+      li[j] = lis[i]
+      j = j + 1
+  # print(li)
+  sm = []
+  lg = []
+  for i in range(0, j):
+    smi = 100
+    smj = 100
+    lgi = 0
+    lgj = 0
+    for k in li[i]:
+      for kk in li[i]:
+        if k != kk:
+          if k[0] <= kk[0] and k[0] < smi:
+            smi = k[0]
+          if k[1] <= kk[1] and k[1] < smj:
+            smj = k[1]
+          if k[0] >= kk[0] and k[0] > lgi:
+            lgi = k[0]
+          if k[1] >= kk[1] and k[1] > lgj:
+            lgj = k[1]
+    sm = sm + [[smi, smj]]
+    lg = lg + [[lgi, lgj]]
+
+
+##################################################################
+
+  diction.update(
+      {8: [sm, lg, count1]})
+
   return diction
 
 

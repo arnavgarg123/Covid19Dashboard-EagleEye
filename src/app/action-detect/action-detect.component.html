@@ -8,89 +8,54 @@
     <div class="col-md-6">
       <div class="row_Custom">
         <div class="col-md-6 row_image">
-          <img src="assets/images/Park1_AR.jpg" class="img" width="370" height="265">
-          <!--<div class="blink well" style="margin-top: 10px; width:370px;">
-            <span class="label1 success"><strong> People are {{Park1AR1}} </strong></span>
-          </div>
-          <div class="blink well" style="margin-top: 10px; background-color: {{color1}}; width:370px;">
-            <span class="label1"> {{Park1AR1_FinalStats}} </span>
-          </div>-->
+          <canvas #canvas1 width="370" height="265" tooltip={{Park1AR1_FinalStats}} [options]="myOptions" (mouseover)="onMouseOver('canvas1');"> </canvas>
         </div>
-        <div class="col-md-6 row_image">
-          <img src="assets/images/Park2_NAR.jpg" class="img" width="370" height="265">
-          <!--<div class="blink well" style="margin-top: 10px; width:370px;">
-            <span class="label1 success"> <strong> People are {{Park2NAR1}} </strong></span>
-          </div>
-          <div class="blink well" style="margin-top: 10px; background-color:{{color2}}; width:370px;">
-            <span class="label1"> {{Park2NAR1_FinalStats}} </span>
-          </div>-->
+        <div tooltip={{Park2NAR1_FinalStats}} class="col-md-6 row_image">
+          <canvas #canvas2 width="370" height="265" tooltip={{Park2NAR1_FinalStats}} [options]="myOptions" (mouseover)="onMouseOver('canvas2');"></canvas>
         </div>
       </div>
       <div class="row_Custom">
         <div class="col-md-6 row_image">
-          <img src="assets/images/Park3_AR.jpg" class="img" width="370" height="265">
-          <!--<div class="blink well" style="margin-top: 10px; width:370px;">
-            <span class="label1 success"><strong> People are {{Park3AR1}} </strong></span>
-          </div>
-          <div class="blink well" style="margin-top: 10px; background-color:{{color3}}; width:370px;">
-            <span class="label1"> {{Park3AR1_FinalStats}} </span>
-          </div>-->
+          <canvas #canvas3 width="370" height="265" tooltip={{Park3AR1_FinalStats}} [options]="myOptions" (mouseover)="onMouseOver('canvas3');"></canvas>
         </div>
         <div class="col-md-6 row_image">
-          <img src="assets/images/Park4_AR.jpg" class="img" width="370" height="265">
-          <!--<div class="blink well" style="margin-top: 10px; width:370px;">
-            <span class="label1 success"><strong> People are {{Park4AR1}} </strong></span>
-          </div>
-          <div class="blink well" style="margin-top: 10px; background-color:{{color4}}; width:370px;">
-            <span class="label1"> {{Park4AR1_FinalStats}} </span>
-          </div>-->
+          <canvas #canvas4 width="370" height="265" tooltip={{Park4AR1_FinalStats}} [options]="myOptions" (mouseover)="onMouseOver('canvas4');"></canvas>
         </div>
       </div>
       <div class="row_Custom">
         <div class="col-md-6 row_image">
-          <img src="assets/images/Beach1_AR.jpg" class="img" width="370" height="265">
-          <!--<div class="blink well" style="margin-top: 10px; width:370px;">
-            <span class="label1 success"><strong> People are {{Beach1AR1}} </strong></span>
-          </div>
-          <div class="blink well" style="margin-top: 10px; background-color:{{color5}}; width:370px;">
-            <span class="label1"> {{Beach1AR1_FinalStats}} </span>
-          </div>-->
-        </div>
-        <div class="col-md-6 row_image">
-          <img src="assets/images/Beach2_NAR.jpg" class="img" width="370" height="265">
-          <!--<div class="blink well" style="margin-top: 10px; width:370px;">
-            <span class="label1 success"> <strong> People are {{Beach2NAR1}} </strong></span>
-          </div>
-          <div class="blink well" style="margin-top: 10px; background-color:{{color6}}; width:370px;">
-            <span class="label1"> {{Beach2NAR1_FinalStats}} </span>
-          </div>-->
-        </div>
-      </div>
-      <div class="row_Custom">
-        <div class="col-md-6 row_image">
-          <img src="assets/images/Beach3_AR.jpg" class="img" width="370" height="265">
-          <!--<div class="blink well" style="margin-top: 10px; width:370px;">
-            <span class="label1 success"><strong> People are {{Beach3AR1}} </strong></span>
-          </div>
-          <div class="blink well" style="margin-top: 10px; background-color:{{color7}}; width:370px;">
-            <span class="label1"> {{Beach3AR1_FinalStats}} </span>
-          </div>-->
+          <canvas #canvas5 width="370" height="265" tooltip={{Beach1AR1_FinalStats}} [options]="myOptions" (mouseover)="onMouseOver('canvas5');"></canvas>
 
         </div>
         <div class="col-md-6 row_image">
-          <img src="assets/images/Beach4_NAR.jpg" class="img" width="370" height="265">
-          <!--<div class="blink well" style="margin-top: 10px; width:370px;">
-            <span class="label1 success"><strong> People are {{Beach4NAR1}} </strong></span>
-          </div>
-          <div class="blink well" style="margin-top: 10px; background-color:{{color8}}; width:370px;">
-            <span class="label1"> {{Beach4NAR1_FinalStats}} </span>
-          </div>-->
+          <canvas #canvas6 width="370" height="265" tooltip={{Beach2NAR1_FinalStats}} [options]="myOptions" (mouseover)="onMouseOver('canvas6');"></canvas>
+
+        </div>
+      </div>
+      <div class="row_Custom">
+        <div class="col-md-6 row_image">
+          <canvas #canvas7 width="370" height="265" tooltip={{Beach3AR1_FinalStats}} [options]="myOptions" (mouseover)="onMouseOver('canvas7');"></canvas>
+
+
+        </div>
+        <div class="col-md-6 row_image">
+          <canvas #canvas8 width="370" height="265" tooltip={{Beach4NAR1_FinalStats}} [options]="myOptions" (mouseover)="onMouseOver('canvas8');"></canvas>
+
         </div>
       </div>
     </div>
     <div class="col-md-6 map" style="top:0px;">
-      <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" style="height:780px">
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      <agm-map #gm [latitude]="lat" [zoom]="zoom" [longitude]="lng" style="height:780px" [mapTypeId]="'hybrid'">
+        <agm-marker [latitude]="lat" [longitude]="lng" (mouseOver)="onMarkerMouseOver(infoWindow,gm)">
+          <agm-info-window style="background-color: beige; padding:5px;" [disableAutoPan]="false" #infoWindow>
+            <div>
+              <h4 style="background-color: darkcyan;color:white;padding: 8px;"> {{ locationHover }} </h4>
+              <h5> {{lat}}</h5>
+              <h5> {{lng}}</h5>
+            </div>
+          </agm-info-window>
+        </agm-marker>
+
       </agm-map>
     </div>
   </div>

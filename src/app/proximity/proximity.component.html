@@ -3,13 +3,12 @@
     <div class="col-sm-12 " style="z-index:2;">
       <h2 class="text-center"> Proximity And Density Tracker </h2>
     </div>
-
   </div>
   <div style="display: flex; background-color: lightgrey;">
     <div class="col-md-6">
       <div class="row_Custom">
         <div class="col-md-6 row_image">
-          <img src="assets/images/1.jpg" class="img" width="370" height="265">
+          <canvas #canvas1 width="370" height="265" tooltip={{tes1}} (mouseover)="onMouseOver('canvas1');"></canvas>
           <!--<div class="blink well" style="margin-top: 10px; background-color: {{color1}}; width:370pxpx;">
             <span class="label1 success"><strong> {{var1}} people in the frame with max groupsize of {{var11}} </strong></span>
           </div>
@@ -18,7 +17,7 @@
           </div>-->
         </div>
         <div class="col-md-6 row_image">
-          <img src="assets/images/2.jpg" class="img" width="370" height="265">
+          <canvas #canvas2 width="370" height="265" tooltip={{tes2}} (mouseover)="onMouseOver('canvas2');"></canvas>
           <!--<div class="blink well" style="margin-top: 10px; background-color: {{color2}}; width:370pxpx;">
             <span class="label1 success"> <strong> Total number of people : </strong> {{var2}}</span>
           </div>
@@ -29,7 +28,56 @@
       </div>
       <div class="row_Custom">
         <div class="col-md-6 row_image">
-          <img src="assets/images/3.jpg" class="img" width="370" height="265">
+          <canvas #canvas3 width="370" height="265" tooltip={{tes3}} (mouseover)="onMouseOver('canvas3');"></canvas>
+          <!--<div class="blink well" style="margin-top: 10px; background-color: {{color3}}; width:370pxpx;">
+            <span class="label1 success"><strong> Total number of people : </strong> {{var3}}</span>
+          </div>
+          <div class="blink well" style="margin-top: 10px; background-color:{{color33}}; width:370pxpx;">
+            <span class="label1 success"><strong> Most people in a group : </strong> {{var33}}</span>
+          </div>-->
+        </div>
+        <div class="col-md-6 row_image">
+          <canvas #canvas4 width="370" height="265" tooltip={{tes4}} (mouseover)="onMouseOver('canvas4');"></canvas>
+          <!--<div class="blink well" style="margin-top: 10px; background-color: {{color3}}; width:370pxpx;">
+            <span class="label1 success"><strong> Total number of people : </strong> {{var3}}</span>
+          </div>
+          <div class="blink well" style="margin-top: 10px; background-color:{{color33}}; width:370pxpx;">
+            <span class="label1 success"><strong> Most people in a group : </strong> {{var33}}</span>
+          </div>-->
+        </div>
+      </div>
+      <div class="row_Custom">
+        <div class="col-md-6 row_image">
+          <canvas #canvas5 width="370" height="265" tooltip={{tes5}} (mouseover)="onMouseOver('canvas5');"></canvas>
+          <!--<div class="blink well" style="margin-top: 10px; background-color: {{color3}}; width:370pxpx;">
+            <span class="label1 success"><strong> Total number of people : </strong> {{var3}}</span>
+          </div>
+          <div class="blink well" style="margin-top: 10px; background-color:{{color33}}; width:370pxpx;">
+            <span class="label1 success"><strong> Most people in a group : </strong> {{var33}}</span>
+          </div>-->
+        </div>
+        <div class="col-md-6 row_image">
+          <canvas #canvas6 width="370" height="265" tooltip={{tes6}} (mouseover)="onMouseOver('canvas6');"></canvas>
+          <!--<div class="blink well" style="margin-top: 10px; background-color: {{color3}}; width:370pxpx;">
+            <span class="label1 success"><strong> Total number of people : </strong> {{var3}}</span>
+          </div>
+          <div class="blink well" style="margin-top: 10px; background-color:{{color33}}; width:370pxpx;">
+            <span class="label1 success"><strong> Most people in a group : </strong> {{var33}}</span>
+          </div>-->
+        </div>
+      </div>
+      <div class="row_Custom">
+        <div class="col-md-6 row_image">
+          <canvas #canvas7 width="370" height="265" tooltip={{tes7}} (mouseover)="onMouseOver('canvas7');"></canvas>
+          <!--<div class="blink well" style="margin-top: 10px; background-color: {{color3}}; width:370pxpx;">
+            <span class="label1 success"><strong> Total number of people : </strong> {{var3}}</span>
+          </div>
+          <div class="blink well" style="margin-top: 10px; background-color:{{color33}}; width:370pxpx;">
+            <span class="label1 success"><strong> Most people in a group : </strong> {{var33}}</span>
+          </div>-->
+        </div>
+        <div class="col-md-6 row_image">
+          <canvas #canvas8 width="370" height="265" tooltip={{tes8}} (mouseover)="onMouseOver('canvas8');"></canvas>
           <!--<div class="blink well" style="margin-top: 10px; background-color: {{color3}}; width:370pxpx;">
             <span class="label1 success"><strong> Total number of people : </strong> {{var3}}</span>
           </div>
@@ -40,8 +88,17 @@
       </div>
     </div>
     <div class="col-md-6 map" style="top:0px;">
-      <agm-map [latitude]="lat" [zoom]="zoom" [longitude]="lng" style="height:780px;">
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      <agm-map #gm [latitude]="lat" [zoom]="zoom" [longitude]="lng" style="height:780px" [mapTypeId]="'hybrid'">
+        <agm-marker [latitude]="lat" [longitude]="lng" (mouseOver)="onMarkerMouseOver(infoWindow,gm)">
+          <agm-info-window style="background-color: beige; padding:5px;" [disableAutoPan]="false" #infoWindow>
+            <div>
+              <h4 style="background-color: darkcyan;color:white;padding: 8px;"> {{ locationHover }} </h4>
+              <h5> {{lat}}</h5>
+              <h5> {{lng}}</h5>
+            </div>
+          </agm-info-window>
+        </agm-marker>
+
       </agm-map>
     </div>
   </div>

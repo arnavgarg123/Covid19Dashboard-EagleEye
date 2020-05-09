@@ -23,6 +23,7 @@ import { DashboardadminComponent } from './dashboardadmin/dashboardadmin.compone
 import { MapadminComponent } from './mapadmin/mapadmin.component';
 import { ActionDetectComponent } from './action-detect/action-detect.component';
 import { ProximityComponent } from './proximity/proximity.component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +48,7 @@ import { ProximityComponent } from './proximity/proximity.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    TooltipModule,
     FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBL7PlI3tjq4mbYWrICjswIuFEf-bZgmpI'
