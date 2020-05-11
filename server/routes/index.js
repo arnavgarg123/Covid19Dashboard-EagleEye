@@ -5,6 +5,8 @@ const AssistantV2 = require('ibm-watson/assistant/v2');
 const request = require("request");
 const url = "https://bing.com/covid/data";
 var fetch = require('node-fetch');
+var Cloudant = require('@cloudant/cloudant');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const {
   WatsonMLScoringEndpoint
 } = require("watson-ml-model-utils");
@@ -35,6 +37,14 @@ const assistant = new AssistantV2({
   url: process.env.URL,
 });
 
+var cloudant = new Cloudant({
+  account: '5e4652a6-5c83-4a6b-bdea-d59e541a9214-bluemix',
+  plugins: {
+    iamauth: {
+      iamApiKey: '3YU6xJFL3nRhQfuK7dg1yorNJsh2fooBpiqeIgNW4Whl'
+    }
+  }
+});
 
 var wml_credentials = {
   "apikey": "5aLBMzzHrv5FfIAamrsGF_iA89Ju00QBqdIkX5Qlbxc8",
@@ -224,7 +234,61 @@ router.post('/AskWatson', (req, resp, next) => {
     })
     .then(res => {
       //console.log(JSON.stringify(res, null, 2));
-      resp.send(res)
+      cloudant.db.use('covidzoneclassification').list({
+        include_docs: true
+      }, function(err, body) {
+        var str = res.result.output.generic[0].text;
+        var st = str.split(" ");
+        for (var i = 0; i < body.total_rows; i++) {
+          if (st[0] == 'vaccine') {
+            if (body.rows[i].doc.postcode == st[1] && body.rows[i].doc.zone == 'green') {
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Your query has been raised. Your reference number is " + Math.floor(100000 + Math.random() * 900000), true);
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                  console.log('success')
+                }
+              };
+              xhr.send();
+              res.result.output.generic[0].text = "Please visit " + body.rows[i].doc.hospital + " to get your vaccination.";
+            }
+            if (body.rows[i].doc.postcode == st[1] && body.rows[i].doc.zone == 'red') {
+              while (body.rows[i].doc.zone != 'green') {
+                i++;
+              }
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Your query has been raised. Your reference number is " + Math.floor(100000 + Math.random() * 900000), true);
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                  console.log('success')
+                }
+              };
+              xhr.send();
+              res.result.output.generic[0].text = "Your area is in red zone. Please visit " + body.rows[i].doc.hospital + " to get your vaccination.";
+            }
+          }
+          if (st[0] == 'supply') {
+            var shop = ["Coles", "Woolworths", "ALDI", "IGA", "Woolies"];
+            var randomItem = shop[Math.floor(Math.random() * shop.length)];
+            if (body.rows[i].doc.postcode == st[1] && body.rows[i].doc.zone == 'green') {
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Your query has been raised. Your reference number is " + Math.floor(100000 + Math.random() * 900000), true);
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                  console.log('success')
+                }
+              };
+              xhr.send();
+              res.result.output.generic[0].text = "Please visit " + randomItem + " to get your food supplies.";
+            }
+            if (body.rows[i].doc.postcode == st[1] && body.rows[i].doc.zone == 'red') {
+              res.result.output.generic[0].text = "Your area is in red zone. We will deliver food kit in some time";
+            }
+          }
+        }
+        resp.send(res)
+      });
+
     })
     .catch(err => {
       console.log(err);

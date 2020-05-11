@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cloudant/cloudant": "^4.2.4",
     "btoa": "^1.2.1",
     "coronapi": "^0.5.1",
     "cors": "^2.8.5",
@@ -20,6 +21,7 @@
     "request": "^2.88.2",
     "resize-image": "^0.1.0",
     "sharp": "^0.25.2",
-    "watson-ml-model-utils": "0.0.3"
+    "watson-ml-model-utils": "0.0.3",
+    "xmlhttprequest": "^1.8.0"
   }
 }
