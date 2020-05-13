@@ -28,6 +28,16 @@ This is an example of how to list things you need to use the software and how to
     ```
 * MongoDB
     * To get the login and registeration working you must have mongoDB installed. Install [MongoDB](https://www.mongodb.com/download-center/community) from the official site.
+    * Create database as Covid and add two tables into MongoDB
+	    * **location** - Stores the lat and long when user requests for help
+	    * **user** - for logging into application. Create below entries for admin and user.
+			    * **email** - admin
+			    * **Password** - *****
+
+* Cloudant database on IBM cloud 
+	* Create database as **covidzoneclassification**
+	* Import data provided in covidzoneclassification.json file in the project folder
+  
 
 ### Installation
 
