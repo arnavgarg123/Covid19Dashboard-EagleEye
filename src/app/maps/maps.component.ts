@@ -6,15 +6,15 @@ import { ViewChild, Component, OnInit } from '@angular/core';
 })
 export class MapsComponent implements OnInit {
   texto: string = 'Wenceslau Braz - Cuidado com as cargas';
-  lat: number = -23.8779431;
-  lng: number = -49.8046873;
+  lat: number = -33.816536;
+  lng: number = 151.003808;
   zoom: number = 15;
   text: any;
   setCurrentLocation() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
+        //this.lat = position.coords.latitude;
+        //this.lng = position.coords.longitude;
         this.zoom = 15;
         localStorage.setItem('lat', this.lat.toString());
         localStorage.setItem('lng', this.lng.toString());

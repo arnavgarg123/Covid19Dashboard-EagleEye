@@ -1,6 +1,6 @@
 .user_img {
-  height: 70px;
-  width: 70px;
+  height: 55px;
+  width: 55px;
   border: 1.5px solid #f5f6fa;
 }
 
@@ -24,7 +24,7 @@
 }
 
 .chat-box {
-  max-height: 70%;
+  max-height: 79%;
   display: flex;
   overflow-y: auto;
   flex-direction: column-reverse;
@@ -37,20 +37,20 @@ textarea {
 }
 
 .msg_cotainer {
-  max-width: 60%;
+  max-width: 75%;
   background-color: cornflowerblue;
-  border-radius: 20px;
-  text-align: center;
+  border-radius: 20px 0px 20px 20px;
+  text-align: left;
   float: right;
   padding: 10px;
-  margin: 10px 0px 10px 5px;
+  margin: 10px 5px 10px 0px;
 }
 
 .msg_cotainer_send {
   text-align: left;
-  max-width: 60%;
+  max-width: 75%;
   background-color: cornflowerblue;
-  border-radius: 20px;
+  border-radius: 0px 20px 20px 20px;
   text-align: center;
   float: left;
   padding: 10px;

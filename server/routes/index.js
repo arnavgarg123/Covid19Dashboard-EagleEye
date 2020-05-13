@@ -239,32 +239,33 @@ router.post('/AskWatson', (req, resp, next) => {
       }, function(err, body) {
         var str = res.result.output.generic[0].text;
         var st = str.split(" ");
+        console.log("Str split");
+        console.log(st);
         for (var i = 0; i < body.total_rows; i++) {
-          if (st[0] == 'vaccine') {
-            if (body.rows[i].doc.postcode == st[1] && body.rows[i].doc.zone == 'green') {
-              var xhr = new XMLHttpRequest();
-              xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Your query has been raised. Your reference number is " + Math.floor(100000 + Math.random() * 900000), true);
-              xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                  console.log('success')
-                }
-              };
-              xhr.send();
-              res.result.output.generic[0].text = "Please visit " + body.rows[i].doc.hospital + " to get your vaccination.";
+          if (st[0] == 'visit' && body.rows[i].doc.zone == 'green') {
+            if (body.rows[i].doc.postcode == st[1] || body.rows[i].doc.location == st[1]) {
+              res.result.output.generic[0].text = "The area you wish to visit is in green zone. Please do take some precautions to ensure your safety and others safety.";
             }
-            if (body.rows[i].doc.postcode == st[1] && body.rows[i].doc.zone == 'red') {
-              while (body.rows[i].doc.zone != 'green') {
-                i++;
+          }
+
+          if (st[0] == 'visit' && body.rows[i].doc.zone == 'red') {
+            if (body.rows[i].doc.postcode == st[1] || body.rows[i].doc.location.toLowerCase() == st[1].toLowerCase()) {
+              var j = i;
+              while (body.rows[j].doc.zone == 'red') {
+                j++;
               }
-              var xhr = new XMLHttpRequest();
-              xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Your query has been raised. Your reference number is " + Math.floor(100000 + Math.random() * 900000), true);
-              xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                  console.log('success')
-                }
-              };
-              xhr.send();
-              res.result.output.generic[0].text = "Your area is in red zone. Please visit " + body.rows[i].doc.hospital + " to get your vaccination.";
+              var first = body.rows[j].doc.location;
+              j = j + 1;
+              while (body.rows[j].doc.zone == 'red') {
+                j++;
+              }
+              var second = body.rows[j].doc.location;
+              j = j + 1;
+              while (body.rows[j].doc.zone == 'red') {
+                j++;
+              }
+              var third = body.rows[j].doc.location;
+              res.result.output.generic[0].text = "The area you wish to visit is in high risk area. Some recommended areas in green zone are -\n1. " + first + ", \n2. " + second + ", \n3. " + third;
             }
           }
           if (st[0] == 'supply') {
@@ -279,12 +280,42 @@ router.post('/AskWatson', (req, resp, next) => {
                 }
               };
               xhr.send();
-              res.result.output.generic[0].text = "Please visit " + randomItem + " to get your food supplies.";
+              var randNum = Math.floor(100000 + Math.random() * 900000);
+              res.result.output.generic[0].text = "You are in green zone. Please visit " + randomItem + " to get your food supplies. \nA message has been sent to your registered mobile number with your reference number.";
             }
             if (body.rows[i].doc.postcode == st[1] && body.rows[i].doc.zone == 'red') {
-              res.result.output.generic[0].text = "Your area is in red zone. We will deliver food kit in some time";
+              var randNum = Math.floor(100000 + Math.random() * 900000);
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Your query has been raised. Your reference number is " + randNum, true);
+              xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                  console.log('success')
+                }
+              };
+              xhr.send();
+              res.result.output.generic[0].text = "Your area is in red zone. We will deliver food kit in some time. Your request number is - \n " + randNum + ". \nA message has been sent to your registered mobile number with your reference number.";
             }
           }
+        }
+        if (st[0] == "Call" && st[1] == "Ambulance") {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Ambulance requested.", true);
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              console.log('success')
+            }
+          };
+          xhr.send();
+          var xhr = new XMLHttpRequest();
+          var num = Math.floor(100000 + Math.random() * 900000);
+          xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Ambulance has been called. Your reference number is " + num + " Name of the driver - Jack Noah. Mobile number of the driver - +61 81758845", true);
+          xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              console.log('success')
+            }
+          };
+          xhr.send();
+          res.result.output.generic[0].text = "Ambulance has been called. It will arrive at your location in some time. \nYour reference number is \n" + num + ". \nA message has been sent to your registered mobile number with your reference number and the driver details.";
         }
         resp.send(res)
       });

@@ -19,7 +19,16 @@ export class CasesNumberComponent implements OnInit {
   state: any;
   area: any;
   constructor(private chatService: ChatService) {
-    localStorage.setItem("len", "0");
+    this.chatService.getDateAustralia().subscribe(response => {
+      this.data = response;
+      console.log("Australia Data : ");
+      console.log(response);
+      this.Location = this.data.country;
+      this.cases = this.data.cases;
+      this.death = this.data.deaths;
+      this.recover = this.data.recovered;
+    })
+    /*localStorage.setItem("len", "0");
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
@@ -78,7 +87,7 @@ export class CasesNumberComponent implements OnInit {
     }
 
     if (!this.Location)
-      this.Location = "Global";
+      this.Location = "Global";*/
   }
 
   ngOnInit(): void {

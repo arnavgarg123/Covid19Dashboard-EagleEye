@@ -10,6 +10,9 @@ export class ChatService {
   a: any;
   utterences: Utterence[] = [];
   constructor(private http: HttpClient) { }
+  getDateAustralia() {
+    return this.http.get("https://coronavirus-19-api.herokuapp.com/countries/Australia")
+  }
   getProx() {
     return this.http.post("http://localhost:5000/companies", null);
   }
