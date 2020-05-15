@@ -16,12 +16,16 @@ const {
   IamAuthenticator
 } = require('ibm-watson/auth');
 
+const accountSid = 'AC47c50eedd8aec69a76f40c3a10d23706';
+const authToken = 'd1f9c3a1d65c5aee91b275d34ba728e1';
+const client = require('twilio')(accountSid, authToken);
+
 const discovery = new DiscoveryV1({
   version: '2019-04-30',
   authenticator: new IamAuthenticator({
-    apikey: 'TXcaw5W_0Efc00Gyyf5HZ5CvY3JLXjuSw0YPC4e2AQqY',
+    apikey: '4OkZY4V7mFE33f7ToN-KokAy-o-Fph1zxCryN8yGYN6o',
   }),
-  url: 'https://api.eu-gb.discovery.watson.cloud.ibm.com/instances/96f00cc9-4f27-4aeb-8405-50d6104c8001',
+  url: 'https://gateway-lon.watsonplatform.net/discovery/api',
 });
 /********* End ********** */
 
@@ -280,6 +284,12 @@ router.post('/AskWatson', (req, resp, next) => {
                 }
               };
               xhr.send();
+              /*client.messages.create({
+                  body: "Your query has been raised. Your reference number is " + Math.floor(100000 + Math.random() * 900000),
+                  from: '+12058801481',
+                  to: '+918428275272'
+                })
+                .then(message => console.log(message.sid));*/
               var randNum = Math.floor(100000 + Math.random() * 900000);
               res.result.output.generic[0].text = "You are in green zone. Please visit " + randomItem + " to get your food supplies. \nA message has been sent to your registered mobile number with your reference number.";
             }
@@ -293,6 +303,12 @@ router.post('/AskWatson', (req, resp, next) => {
                 }
               };
               xhr.send();
+              /*client.messages.create({
+                  body: "Your query has been raised. Your reference number is " + randNum,
+                  from: '+12058801481',
+                  to: '+918428275272'
+                })
+                .then(message => console.log(message.sid));*/
               res.result.output.generic[0].text = "Your area is in red zone. We will deliver food kit in some time. Your request number is - \n " + randNum + ". \nA message has been sent to your registered mobile number with your reference number.";
             }
           }
@@ -306,6 +322,12 @@ router.post('/AskWatson', (req, resp, next) => {
             }
           };
           xhr.send();
+          /*client.messages.create({
+              body: "Ambulance requested.",
+              from: '+12058801481',
+              to: '+918428275272'
+            })
+            .then(message => console.log(message.sid))*/
           var xhr = new XMLHttpRequest();
           var num = Math.floor(100000 + Math.random() * 900000);
           xhr.open("GET", "https://platform.clickatell.com/messages/http/send?apiKey=Ni31A3NMRHW9tO4bGz3qHA==&to=918217099893&content=" + "Ambulance has been called. Your reference number is " + num + " Name of the driver - Jack Noah. Mobile number of the driver - +61 81758845", true);
@@ -315,6 +337,12 @@ router.post('/AskWatson', (req, resp, next) => {
             }
           };
           xhr.send();
+          /*client.messages.create({
+              body: "Ambulance has been called. Your reference number is " + num + " Name of the driver - Jack Noah. Mobile number of the driver - +61 81758845",
+              from: '+12058801481',
+              to: '+918428275272'
+            })
+            .then(message => console.log(message.sid))*/
           res.result.output.generic[0].text = "Ambulance has been called. It will arrive at your location in some time. \nYour reference number is \n" + num + ". \nA message has been sent to your registered mobile number with your reference number and the driver details.";
         }
         resp.send(res)

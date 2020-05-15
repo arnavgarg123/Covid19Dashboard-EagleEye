@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   userInput: any;
   send() {
     console.log(this.userInput);
-    this.chatService.sendSOS(this.lat, this.lng, this.userInput).subscribe(response => {
+    this.chatService.sendSOS(-33.816536, 151.013, this.userInput).subscribe(response => {
       this.var111 = "none";
     });
   }
@@ -28,8 +28,10 @@ export class DashboardComponent implements OnInit {
       this.var11 = "none";
   }
   change1() {
-    this.lat = Number(localStorage.getItem("lat"));
-    this.lng = Number(localStorage.getItem("lng"));
+    //this.lat = Number(localStorage.getItem("lat"));
+    //this.lng = Number(localStorage.getItem("lng"));
+    this.lat = -33.816536;
+    this.lng = 151.013;
     if (this.var11 == "")
       this.var11 = "none";
     if (this.var111 == "none")

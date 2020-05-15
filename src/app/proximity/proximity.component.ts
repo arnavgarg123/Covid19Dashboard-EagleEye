@@ -79,24 +79,24 @@ export class ProximityComponent implements OnInit {
         this.locationHover = "Blaxland Riverside Park";
         break;
       case 'canvas5':
-        this.lat = -33.8082573;
-        this.lng = 151.2894245;
-        this.locationHover = "Collins Flat Beach";
+        this.lat = -37.835670;
+        this.lng = 145.120575;
+        this.locationHover = "Box Hill";
         break;
       case 'canvas6':
-        this.lat = -33.8565601;
-        this.lng = 151.264978;
-        this.locationHover = "Milk Beach";
+        this.lat = -33.887488;
+        this.lng = 151.125610;
+        this.locationHover = "Ashfield Station";
         break;
       case 'canvas7':
-        this.lat = -33.5986074;
-        this.lng = 151.3086218;
-        this.locationHover = "Palm Beach";
+        this.lat = -33.970240;
+        this.lng = 151.115380;
+        this.locationHover = "Allawah Station";
         break;
       case 'canvas8':
-        this.lat = -33.6287196;
-        this.lng = 151.3101907;
-        this.locationHover = "Avalon Beach";
+        this.lat = -33.808860;
+        this.lng = 151.184800;
+        this.locationHover = "Artarmon Station";
         break;
     }
   }

@@ -16,8 +16,10 @@ export class MapsComponent implements OnInit {
         //this.lat = position.coords.latitude;
         //this.lng = position.coords.longitude;
         this.zoom = 15;
-        localStorage.setItem('lat', this.lat.toString());
-        localStorage.setItem('lng', this.lng.toString());
+        //localStorage.setItem('lat', this.lat.toString());
+        //localStorage.setItem('lng', this.lng.toString());
+        localStorage.setItem('lat', '-33.816536');
+        localStorage.setItem('lng', '151.013');
       });
     }
   }
