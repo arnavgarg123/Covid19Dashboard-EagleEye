@@ -5,7 +5,6 @@ To setup the environment and get the code running follow the steps below.
 
 ### Built With
 Major Frameworks that this project is built on.
-* [Watson ML](https://www.ibm.com/in-en/cloud/machine-learning)
 * [Watson Visual Recognition](https://www.ibm.com/in-en/cloud/watson-visual-recognition)
 * [Watson Assistant](https://www.ibm.com/cloud/watson-assistant/)
 * [Watson Discovery](https://www.ibm.com/in-en/cloud/watson-discovery)
@@ -66,6 +65,12 @@ This is an example of how to list things you need to use the software and how to
     ```
     ```sh
     conda install pillow=6.1
+    ```
+    ```sh
+    pip install Flask-Cors
+    ```
+    ```sh
+    pip install python-resize-image
     ```
 4. Setup MongoDB by creating a `database` named Covid and 2 collections -`location` and `user`. To access admin functionallity make sure to add a user with `email` as `admin` and any password in feild `Password`.
 # Usage
